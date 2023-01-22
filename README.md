@@ -1,1 +1,1 @@
-Forecasting of Energy Consumption Using LSTM and Mlflow. Deploying with FastAPI.
+Forecasting of Energy Consumption Using LSTM, Mlflow and Deploying with FastAPI.
