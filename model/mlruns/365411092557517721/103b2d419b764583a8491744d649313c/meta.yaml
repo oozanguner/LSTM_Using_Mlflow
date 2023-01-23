@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/ozanguner/VS_Projects/LSTM_Using_Mlflow/model/mlruns/365411092557517721/103b2d419b764583a8491744d649313c/artifacts
+end_time: 1674508649642
+entry_point_name: ''
+experiment_id: '365411092557517721'
+lifecycle_stage: active
+run_id: 103b2d419b764583a8491744d649313c
+run_name: colorful-ant-561
+run_uuid: 103b2d419b764583a8491744d649313c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1674508644627
+status: 4
+tags: []
+user_id: ozanguner

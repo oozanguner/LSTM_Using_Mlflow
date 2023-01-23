@@ -1,4 +1,5 @@
 .env
 .venv
 .idea
-.model/dataset
+./model/dataset
+./model/mlruns

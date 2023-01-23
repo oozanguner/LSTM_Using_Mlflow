@@ -5,6 +5,7 @@ from keras.models import Sequential
 from keras.layers import Dense, LSTM
 from sklearn.preprocessing import MinMaxScaler
 import mlflow
+from mlflow.tracking.client import MlflowClient
 from pathlib import Path
 from urllib.parse import urlparse
 from warnings import filterwarnings
@@ -14,17 +15,17 @@ filterwarnings("ignore")
 
 import os
 
-data_path = 'dataset/GercekZamanliTuketim_01012019_16012023.csv'
+path = 'dataset/GercekZamanliTuketim_01012019_16012023.csv'
 base_dir = os.getcwd()
-file_path = os.path.join(base_dir, data_path)
+file_path = os.path.join(base_dir, path)
 
 df = pd.read_csv(file_path, encoding='unicode_escape')
 
-exp_name="EnergyConsumption"
-client = mlflow.MlflowClient()
-mlflow.set_experiment(exp_name)
-mlflow.tensorflow.autolog()
+tracking_uri = mlflow.get_tracking_uri()
 
+exp_name="EnergyConsumption"
+exper = mlflow.set_experiment(exp_name)
+exper_id = exper.experiment_id
 
 def preprocess(dataframe):
     dataframe["Tarih_Saat"] = [row[0] + "." + row[1] for row in dataframe[["Tarih", "Saat"]].values]
@@ -50,9 +51,7 @@ def preprocess(dataframe):
 
     return train, test
 
-
 train, test = preprocess (df)
-
 
 # SCALING
 def scaling(data=train):
@@ -60,11 +59,9 @@ def scaling(data=train):
     scaled_train = scaler.fit_transform (data)
     return scaled_train
 
-
 scaled_train = scaling (train)
 
-
-def ts_generator(data=train, targets=train, n_input=24, batch_size=1):
+def ts_generator(data=train, targets=train, n_input=3, batch_size=1):
     generator = tf.keras.preprocessing.sequence.TimeseriesGenerator (data=data, targets=targets,
                                                                      length=n_input, batch_size=batch_size)
     return generator
@@ -72,9 +69,8 @@ def ts_generator(data=train, targets=train, n_input=24, batch_size=1):
 
 generator = ts_generator (data=scaled_train, targets=scaled_train)
 
-
 # MODEL
-def create_model(n_input=24, n_features=1, generator = generator):
+def create_model(n_input=3, n_features=1, generator=generator):
     model = Sequential ()
     model.add (LSTM (units=64, activation="relu", input_shape=(n_input, n_features), return_sequences=True))
     model.add (LSTM (units=64, activation="relu", return_sequences=True))
@@ -85,15 +81,16 @@ def create_model(n_input=24, n_features=1, generator = generator):
 
     return model
 
-with mlflow.start_run(run_name = "lstm") as run:
-    model = create_model()
-    tracking_url_type_store = urlparse (mlflow.get_tracking_uri ()).scheme
-    mlflow.tensorflow.log_model (model, "model")
+registered_model = "lstm_model"
 
-    if tracking_url_type_store != "file":
-        mlflow.tensorflow.log_model (model, "model", registered_model_name="lstm")
-    else:
-        mlflow.tensorflow.log_model (model, "model")
+with mlflow.start_run(run_name = "lstm_energy", experiment_id=exper_id) as run:
+    mlflow.tensorflow.autolog()
+    model = create_model()
+    run_id = mlflow.active_run().info.run_id
+    artifact_path = "model"
+
+    model_uri = "runs:/{run_id}/{artifact_path}".format(run_id=run_id, artifact_path=artifact_path) 
+    model_details = mlflow.register_model(model_uri=model_uri, name=registered_model)
 
 
 
