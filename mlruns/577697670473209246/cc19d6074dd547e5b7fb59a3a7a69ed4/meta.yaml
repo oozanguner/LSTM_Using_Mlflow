@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/ozanguner/VS_Projects/LSTM_Using_Mlflow/mlruns/577697670473209246/cc19d6074dd547e5b7fb59a3a7a69ed4/artifacts
+end_time: 1674513441592
+entry_point_name: ''
+experiment_id: '577697670473209246'
+lifecycle_stage: active
+run_id: cc19d6074dd547e5b7fb59a3a7a69ed4
+run_name: lstm_energy
+run_uuid: cc19d6074dd547e5b7fb59a3a7a69ed4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1674513369687
+status: 4
+tags: []
+user_id: ozanguner
