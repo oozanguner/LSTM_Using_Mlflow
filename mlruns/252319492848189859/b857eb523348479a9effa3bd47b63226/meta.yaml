@@ -1,8 +1,9 @@
 artifact_uri: file:///Users/ozanguner/VS_Projects/LSTM_Using_Mlflow/mlruns/252319492848189859/b857eb523348479a9effa3bd47b63226/artifacts
+deleted_time: 1674429567542
 end_time: 1674422813220
 entry_point_name: ''
 experiment_id: '252319492848189859'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: b857eb523348479a9effa3bd47b63226
 run_name: lstm
 run_uuid: b857eb523348479a9effa3bd47b63226
