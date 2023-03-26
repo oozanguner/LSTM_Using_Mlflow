@@ -4,16 +4,10 @@ import datetime as dt
 from keras.models import Sequential
 from keras.layers import Dense, LSTM
 from sklearn.preprocessing import MinMaxScaler
-import mlflow
-from mlflow.tracking.client import MlflowClient
-from pathlib import Path
-from urllib.parse import urlparse
 from warnings import filterwarnings
-from chardet import detect
 
 filterwarnings("ignore")
 
-import os
 
 def preprocess(dataframe):
     dataframe["Tarih_Saat"] = [row[0] + "." + row[1] for row in dataframe[["Tarih", "Saat"]].values]

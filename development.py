@@ -1,4 +1,5 @@
-from model.funcs import *
+from funcs import *
+import mlflow
 
 filterwarnings("ignore")
 
@@ -11,8 +12,9 @@ file_path = os.path.join(base_dir,parent_path,path)
 df = pd.read_csv(file_path, encoding='unicode_escape')
 
 feats = {
-    "n_input":3,
-    "batch_size":1
+    "n_input":24,
+    "batch_size":3,
+    "n_features":1
 }
 
 tracking_uri = mlflow.get_tracking_uri()
@@ -31,7 +33,7 @@ registered_model = "lstm_model"
 
 with mlflow.start_run(run_name = "lstm_energy", experiment_id=exper_id) as run:
     mlflow.tensorflow.autolog()
-    model = create_model(n_input=feats["n_input"], batch_size=feats["batch_size"], generator=generator)
+    model = create_model(n_input=feats["n_input"], n_features=feats["n_features"], generator=generator)
     run_id = mlflow.active_run().info.run_id
     artifact_path = "model"
 
