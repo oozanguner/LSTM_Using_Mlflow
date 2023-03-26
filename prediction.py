@@ -2,7 +2,7 @@ from funcs import *
 import mlflow
 import os
 
-logged_model = 'file:///Users/ozanguner/VS_Projects/LSTM_Using_Mlflow/mlruns/577697670473209246/2360e384b95148da980a5708edb0510e/artifacts/model'
+logged_model = 'file:///Users/ozanguner/VS_Projects/LSTM_Using_Mlflow/mlruns/577697670473209246/da022765022844ed8b83869277c560fb/artifacts/model'
 
 # Load model as a PyFuncModel.
 model = mlflow.pyfunc.load_model(logged_model)
@@ -26,4 +26,6 @@ pred_df = pd.DataFrame ({"True": first_eval_batch.flatten (),
                          "Pred": y_pred.flatten ()})
 
 print(pred_df)
+
+
 

@@ -12,7 +12,7 @@ file_path = os.path.join(base_dir,parent_path,path)
 df = pd.read_csv(file_path, encoding='unicode_escape')
 
 feats = {
-    "n_input":24,
+    "n_input":4,
     "batch_size":3,
     "n_features":1
 }
