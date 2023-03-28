@@ -3,8 +3,12 @@ import tensorflow as tf
 import datetime as dt
 from keras.models import Sequential
 from keras.layers import Dense, LSTM
+from keras.callbacks import ModelCheckpoint
+from keras.metrics import RootMeanSquaredError
+from keras.optimizers import Adam
 from sklearn.preprocessing import MinMaxScaler
 from warnings import filterwarnings
+import numpy as np
 
 filterwarnings("ignore")
 
@@ -39,19 +43,49 @@ def scaling(data):
     scaled_train = scaler.fit_transform (data)
     return scaled_train
 
-def ts_generator(data, targets, n_input=3, batch_size=1):
-    generator = tf.keras.preprocessing.sequence.TimeseriesGenerator (data=data, targets=targets,
-                                                                     length=n_input, batch_size=batch_size)
-    return generator
+#def ts_generator(data, targets, n_input=3, batch_size=1):
+#    generator = tf.keras.preprocessing.sequence.TimeseriesGenerator (data=data, targets=targets,
+#                                                                     length=n_input, batch_size=batch_size)
+#    return generator
 
 # MODEL
-def create_model(generator, n_input=3, n_features=1):
+def lstm_model(X_train, y_train, X_val, y_val, n_input=4, n_features=1):
     model = Sequential ()
     model.add (LSTM (units=64, activation="relu", input_shape=(n_input, n_features), return_sequences=True))
-    model.add (LSTM (units=64, activation="relu", return_sequences=True))
+    model.add (LSTM (units=128, activation="relu", return_sequences=True))
     model.add (LSTM (units=64, activation="relu", return_sequences=False))
     model.add (Dense (1))
-    model.compile (optimizer="adam", loss="mse")
-    model.fit (generator, epochs=3, shuffle=False)
+    cp = ModelCheckpoint("/models/lstm_model", save_best_only=True)
+    model.compile (optimizer=Adam(learning_rate=0.01), loss=RootMeanSquaredError(), metrics=RootMeanSquaredError())
+    model.fit (X_train, y_train, validation_data = (X_val, y_val), epochs=3, shuffle=False, callbacks=[cp])
 
     return model
+
+
+def data_to_X_y(dataframe, window_size=4):
+    np_df = dataframe.to_numpy()
+    X = []
+    y = []
+
+    for i in range(len(np_df)- window_size):
+        row = [[a] for a in np_df[i:i+window_size]]
+        label = np_df[i+window_size]
+
+        X.append(row)
+        y.append(label)
+
+    return np.array(X), np.array(y)
+
+def determine_train_val_test(dataframe, window_size=4, model_weight=0.9, train_weight=0.8):
+    sequences = len(dataframe) // window_size
+
+    model_observations = int(model_weight * sequences) * window_size
+    model_df, test_df = dataframe[:model_observations], dataframe[model_observations:]
+
+    sequences_model = len(model_df) // window_size
+    train_observations = int(train_weight * sequences_model) * window_size
+
+    train_df, val_df = model_df[:train_observations], model_df[train_observations:]
+
+    return train_df, val_df, test_df
+

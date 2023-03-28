@@ -33,7 +33,7 @@ registered_model = "lstm_model"
 
 with mlflow.start_run(run_name = "lstm_energy", experiment_id=exper_id) as run:
     mlflow.tensorflow.autolog()
-    model = create_model(n_input=feats["n_input"], n_features=feats["n_features"], generator=generator)
+    model = lstm_model(n_input=feats["n_input"], n_features=feats["n_features"], generator=generator)
     run_id = mlflow.active_run().info.run_id
     artifact_path = "model"
 
