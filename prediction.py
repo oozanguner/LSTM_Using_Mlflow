@@ -2,7 +2,7 @@ from funcs import *
 import mlflow
 import os
 
-logged_model = 'file:///Users/ozanguner/VS_Projects/LSTM_Using_Mlflow/mlruns/577697670473209246/da022765022844ed8b83869277c560fb/artifacts/model'
+logged_model = 'file:///Users/ozanguner/VS_Projects/LSTM_Using_Mlflow/mlruns/577697670473209246/88cb5c9a3e974930bffbbc46f3c79fea/artifacts/model'
 
 # Load model as a PyFuncModel.
 model = mlflow.pyfunc.load_model(logged_model)

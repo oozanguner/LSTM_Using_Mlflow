@@ -1,0 +1,12 @@
+creation_timestamp: 1680211790998
+current_stage: None
+description: null
+last_updated_timestamp: 1680211790998
+name: lstm_model
+run_id: 5d60bd2e95cb465f9d7d914458b7f92d
+run_link: null
+source: file:///Users/ozanguner/VS_Projects/LSTM_Using_Mlflow/mlruns/577697670473209246/5d60bd2e95cb465f9d7d914458b7f92d/artifacts/model
+status: READY
+status_message: null
+user_id: null
+version: 4
