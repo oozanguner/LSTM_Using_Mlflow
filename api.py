@@ -20,9 +20,8 @@ model = mlflow.pyfunc.load_model(logged_model)
 
 @app.post("/")
 async def prediction(items:Inputs):
-    inp = pd.DataFrame(items.dict().values()).values
+    data = pd.DataFrame(items.dict().values())
+    inp = data.to_numpy().reshape(-1, data.shape[0], data.shape[1])
     y_pred = model.predict (inp)
 
     return {"Prediction":y_pred}
-
-
