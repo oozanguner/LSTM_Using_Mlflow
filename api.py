@@ -24,4 +24,4 @@ async def prediction(items:Inputs):
     inp = data.to_numpy().reshape(-1, data.shape[0], data.shape[1])
     y_pred = model.predict (inp)
 
-    return {"Prediction":y_pred}
+    return {"Prediction":y_pred[0].item()}
