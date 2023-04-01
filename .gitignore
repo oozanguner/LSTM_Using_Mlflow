@@ -2,7 +2,6 @@ __pycache__
 .env
 .venv
 .idea
-.models
-.model
-.mlruns
-
+model
+mlruns/models
+models
