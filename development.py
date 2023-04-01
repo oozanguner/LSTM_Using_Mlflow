@@ -1,10 +1,4 @@
 from funcs import *
-import mlflow
-import os
-import time
-
-filterwarnings("ignore")
-
 
 parent_path = 'model'
 path = 'dataset/GercekZamanliTuketim_01012019_16012023.csv'
