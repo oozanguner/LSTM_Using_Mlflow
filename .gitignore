@@ -1,7 +1,8 @@
-*__pycache__
-*.env
-*.venv
-*.idea
-*./model/dataset
-*./model/mlruns
+__pycache__
+.env
+.venv
+.idea
+models
+model
+mlruns
 
