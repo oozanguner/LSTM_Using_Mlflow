@@ -1,5 +1,5 @@
 from funcs import *
-from consumption import Consumptions
+from consumption import *
 
 app = FastAPI()
 
@@ -9,13 +9,17 @@ model_name = "lstm_model"
 
 model = mlflow.pyfunc.load_model(logged_model)
 
-@app.post("/predict")
+@app.get("/")
+async def root():
+    return {"Welcome":"Energy Consumption Prediction"}
+
+@app.post("/predict", response_model=Predictions)
 async def prediction(items:Consumptions):
     data = pd.DataFrame(items.dict().values())
     inp = data.to_numpy().reshape(-1, data.shape[0], data.shape[1])
-    y_pred = model.predict (inp)
+    prediction = model.predict (inp)
 
-    return {"Prediction":y_pred[0].item()}
+    return {"Prediction":prediction[0].item()}
 
 if __name__ == "__main__":
     uvicorn.run(app, host='127.0.0.1', port=8000)
