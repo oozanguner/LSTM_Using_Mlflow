@@ -1,9 +1,8 @@
 from funcs import *
 
-parent_path = 'model'
 path = 'dataset/GercekZamanliTuketim_01012019_16012023.csv'
 base_dir = os.getcwd()
-file_path = os.path.join(base_dir,parent_path,path)
+file_path = os.path.join(base_dir,path)
 
 print("Development Process Starts")
 

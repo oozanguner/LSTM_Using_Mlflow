@@ -5,8 +5,14 @@ app = FastAPI()
 
 logged_model = 'file:///Users/ozanguner/VS_Projects/LSTM_Using_Mlflow/mlruns/577697670473209246/88cb5c9a3e974930bffbbc46f3c79fea/artifacts/model'
 
+model_name = "lstm_model"
+model_version = 8
+model_path = f"models:/{model_name}/{model_version}"
+
 # Load model as a PyFuncModel.
-model = mlflow.pyfunc.load_model(logged_model)
+#model = mlflow.pyfunc.load_model(logged_model)
+
+model = mlflow.pyfunc.load_model(model_uri=f"models:/{model_name}/{model_version}")
 
 @app.post("/predict")
 async def prediction(items:Consumptions):
