@@ -19,7 +19,7 @@ async def prediction(items:Consumptions):
     inp = data.reshape(-1, data.shape[1], data.shape[0])
     prediction = model.predict (inp)
 
-    return {"Prediction":prediction[0].tolist()}
+    return {"Prediction":prediction[0].item()}
 
 if __name__ == "__main__":
     uvicorn.run(app, host='127.0.0.1', port=8000)
