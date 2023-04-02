@@ -15,6 +15,7 @@ from keras.optimizers import Adam
 from sklearn.preprocessing import MinMaxScaler
 from warnings import filterwarnings
 import time
+import tensorflow as tf
 
 filterwarnings("ignore")
 
