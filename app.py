@@ -15,11 +15,11 @@ async def root():
 
 @app.post("/predict", response_model=Predictions)
 async def prediction(items:Consumptions):
-    data = pd.DataFrame(items.dict().values())
-    inp = data.to_numpy().reshape(-1, data.shape[0], data.shape[1])
+    data = np.array([[items.Consumption_0, items.Consumption_1, items.Consumption_2, items.Consumption_3]])
+    inp = data.reshape(-1, data.shape[1], data.shape[0])
     prediction = model.predict (inp)
 
-    return {"Prediction":prediction[0].item()}
+    return {"Prediction":prediction[0].tolist()}
 
 if __name__ == "__main__":
     uvicorn.run(app, host='127.0.0.1', port=8000)
