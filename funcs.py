@@ -73,6 +73,6 @@ def lstm_model(X_train, y_train, X_val, y_val, n_input=4, n_features=1, epoch=3,
     model.add (Dense (1))
     cp = ModelCheckpoint("models/lstm_model", save_best_only=True)
     model.compile (optimizer=Adam(learning_rate=0.01), loss=MeanSquaredError(), metrics=RootMeanSquaredError())
-    model.fit (X_train, y_train, validation_data = (X_val, y_val), epochs=epoch, batch_size=batch,shuffle=False, callbacks=[cp])
+    model.fit (X_train, y_train, validation_data = (X_val, y_val), epochs=epoch, batch_size=batch,shuffle=False, callbacks = [cp])
 
     return model

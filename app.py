@@ -3,11 +3,10 @@ from consumption import Consumptions
 
 app = FastAPI()
 
-logged_model = 'file:///Users/ozanguner/VS_Projects/LSTM_Using_Mlflow/mlruns/182815131481226371/a3ff4f453d284042b7888b299df0c270/artifacts/model'
+logged_model = 'file:///Users/ozanguner/VS_Projects/LSTM_Using_Mlflow/mlruns/668537897870621134/9cc25c3aba34491ca0cd05b73ee25870/artifacts/model'
 
 model_name = "lstm_model"
 
-# Load model as a PyFuncModel.
 model = mlflow.pyfunc.load_model(logged_model)
 
 @app.post("/predict")
