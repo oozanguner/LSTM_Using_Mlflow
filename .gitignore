@@ -1,7 +1,11 @@
 __pycache__
+.DS_Store
 .env
 .venv
 .idea
 mlruns/
 models/
 dataset
+mlartifacts/
+outputs/
+mlruns.db
