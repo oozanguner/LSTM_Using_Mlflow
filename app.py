@@ -11,7 +11,7 @@ model = mlflow.pyfunc.load_model(logged_model)
 
 @app.get("/")
 async def root():
-    return {"Welcome":"Energy Consumption Prediction"}
+    return {"message":"Welcome to your Energy Consumption Prediction FastAPI"}
 
 @app.post("/predict", response_model=Predictions)
 async def prediction(items:Consumptions):

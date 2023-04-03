@@ -16,6 +16,7 @@ from sklearn.preprocessing import MinMaxScaler
 from warnings import filterwarnings
 import time
 import tensorflow as tf
+import requests
 
 filterwarnings("ignore")
 
