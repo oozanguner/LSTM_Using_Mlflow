@@ -3,7 +3,7 @@ from consumption import *
 
 app = FastAPI()
 
-logged_model = 'file:///Users/ozanguner/VS_Projects/LSTM_Using_Mlflow/mlruns/668537897870621134/9cc25c3aba34491ca0cd05b73ee25870/artifacts/model'
+logged_model = 'runs:/9cc25c3aba34491ca0cd05b73ee25870/model'
 
 model_name = "lstm_model"
 
