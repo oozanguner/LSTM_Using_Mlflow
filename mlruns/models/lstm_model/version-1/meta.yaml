@@ -1,7 +1,7 @@
 creation_timestamp: 1680394863417
-current_stage: None
+current_stage: Production
 description: null
-last_updated_timestamp: 1680394863417
+last_updated_timestamp: 1682952397388
 name: lstm_model
 run_id: 9cc25c3aba34491ca0cd05b73ee25870
 run_link: null

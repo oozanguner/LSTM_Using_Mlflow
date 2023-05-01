@@ -26,14 +26,18 @@ registered_model = "lstm_model"
 
 feats = {
     "n_input":4,
-    "batch_size":3,
-    "n_features":1
+    "batch_size":32,
+    "n_features":1,
+    "learning_rate":0.02,
+    "epoch": 10
 }
 
 start_model = time.time()
 with mlflow.start_run(run_name = "lstm_energy", experiment_id=exper_id) as run:
     mlflow.tensorflow.autolog()
-    model = lstm_model(X_train, y_train, X_val, y_val, n_input=feats["n_input"], n_features=feats["n_features"], epoch = 8)
+    model = (lstm_model(X_train, y_train, X_val, y_val, n_input=feats["n_input"], 
+                        n_features=feats["n_features"], epoch = feats["epoch"], batch=feats["batch_size"], 
+                        learn_rate=feats["learning_rate"]))
     run_id = mlflow.active_run().info.run_id
     artifact_path = "model"
 

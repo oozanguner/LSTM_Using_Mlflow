@@ -66,14 +66,14 @@ def scaling (data):
     return scaled_data
 
 # MODEL
-def lstm_model(X_train, y_train, X_val, y_val, n_input=4, n_features=1, epoch=3, batch=32):
+def lstm_model(X_train, y_train, X_val, y_val, n_input=4, n_features=1, epoch=3, batch=32, learn_rate = 0.01):
     model = Sequential ()
     model.add (LSTM (units=64, activation="relu", input_shape=(n_input, n_features), return_sequences=True))
     model.add (LSTM (units=64, activation="relu", return_sequences=True))
     model.add (LSTM (units=64, activation="relu", return_sequences=False))
     model.add (Dense (1))
     cp = ModelCheckpoint("models/lstm_model", save_best_only=True)
-    model.compile (optimizer=Adam(learning_rate=0.01), loss=MeanSquaredError(), metrics=RootMeanSquaredError())
+    model.compile (optimizer=Adam(learning_rate=learn_rate), loss=MeanSquaredError(), metrics=RootMeanSquaredError())
     model.fit (X_train, y_train, validation_data = (X_val, y_val), epochs=epoch, batch_size=batch,shuffle=False, callbacks = [cp])
 
     return model

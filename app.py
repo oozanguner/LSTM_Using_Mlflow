@@ -3,7 +3,14 @@ from consumption import *
 
 app = FastAPI()
 
-logged_model = 'runs:/9cc25c3aba34491ca0cd05b73ee25870/model'
+all_models=mlflow.search_runs(experiment_ids="668537897870621134")
+
+best_model_run = (all_models[['run_id','metrics.val_root_mean_squared_error','metrics.root_mean_squared_error']]
+ .sort_values(by=["metrics.val_root_mean_squared_error","metrics.root_mean_squared_error"], 
+              ignore_index=True)[:1]
+              .run_id[0])
+
+logged_model = f"runs:/{best_model_run}/model"
 
 model_name = "lstm_model"
 
