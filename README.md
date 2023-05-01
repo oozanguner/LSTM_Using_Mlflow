@@ -9,14 +9,14 @@ data source: https://seffaflik.epias.com.tr/transparency/tuketim/gerceklesen-tuk
 
 **Here are the registered model versions;**
 
-![Model Versions](https://file%2B.vscode-resource.vscode-cdn.net/Users/ozanguner/Desktop/model_versions.png?version%3D1682954289257)
+![Model Versions](screenshots/model_versions.png)
 
 **Best model rmse scores;**
 
-![Best Model Score](https://file%2B.vscode-resource.vscode-cdn.net/Users/ozanguner/Desktop/best_model_score.png?version%3D1682954330168)
+![Best Model Score](screenshots/best_model_score.png)
 
 **JSON API Endpoint**
 
-![Endpoint](https://file%2B.vscode-resource.vscode-cdn.net/Users/ozanguner/Desktop/endpoint.png?version%3D1682954351189)
+![Endpoint](screenshots/endpoint.png)
 
 
